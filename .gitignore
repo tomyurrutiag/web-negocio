@@ -1,0 +1,8 @@
+﻿# Nunca subir secretos ni basura
+.env
+*.env
+*secret*
+*password*
+node_modules/
+.DS_Store
+Thumbs.db

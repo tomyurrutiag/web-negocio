@@ -68,7 +68,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
+      padding: 14px 20px;
     }
 
     .brand-name {
@@ -417,26 +417,29 @@
       z-index: 50;
       background-color: var(--color-whatsapp);
       color: #ffffff;
-      padding: 12px 18px;
-      border-radius: 999px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
       box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
+    .wa-floating span {
+      display: none;
+    }
+
     .wa-floating:hover {
       background-color: var(--color-whatsapp-dark);
-      transform: scale(1.04);
+      transform: scale(1.06);
     }
 
     .wa-floating svg {
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
     }
 
     /* Adaptación pantallas medianas y grandes (tablets y PC) */
@@ -474,6 +477,25 @@
 
       .section-title {
         font-size: 1.85rem;
+      }
+
+      .wa-floating {
+        width: auto;
+        height: auto;
+        padding: 12px 18px;
+        border-radius: 999px;
+        gap: 10px;
+      }
+
+      .wa-floating span {
+        display: inline;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .wa-floating svg {
+        width: 22px;
+        height: 22px;
       }
     }
   </style>
@@ -534,14 +556,12 @@
         <article class="service-card">
           <div class="service-icon-wrap icon-nfc">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
-              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-              <circle cx="12" cy="8" r="2"/>
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
             </svg>
           </div>
           <h3 class="service-title">Tarjetas de reseñas Google con NFC</h3>
           <p class="service-description">
-            Tus clientes solo acercan su teléfono (o escanean el código QR) y se les abre directamente la pantalla para dejarte 5 estrellas en Google.
+            Tus clientes solo acercan su teléfono (o escanean el código QR) y se les abre directamente la página para dejarte una reseña en Google.
           </p>
           <ul class="service-features">
             <li>
@@ -602,7 +622,7 @@
               <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
               </svg>
-              <span>Conexión segura y compatible con todos los celulares.</span>
+              <span>Se conectan sin escribir la clave, desde cualquier celular.</span>
             </li>
           </ul>
           <a href="https://wa.me/56900000000?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20los%20carteles%20QR%20WiFi" 
@@ -684,7 +704,7 @@
               <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
               </svg>
-              <span>Material biodegradable y seguro para uso culinario.</span>
+              <span>Lavado a mano; ideal para cortar y estampar masa.</span>
             </li>
           </ul>
           <a href="https://wa.me/56900000000?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20cortadores%203D%20personalizados" 
@@ -719,7 +739,7 @@
             <div class="feature-item-icon">3</div>
             <div>
               <h4>Foco en celular</h4>
-              <p>El 90% de tus clientes usa el smartphone en tu local. Todo está pensado para ellos.</p>
+              <p>La mayoría de tus clientes llega con el celular en la mano. Todo está pensado para ellos.</p>
             </div>
           </div>
         </div>

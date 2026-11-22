@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tomás · Tecnología para tu local</title>
-  <meta name="description" content="Soluciones tecnológicas prácticas para locales comerciales: tarjetas de reseñas Google NFC, carteles QR WiFi, sitios web y galletas personalizadas.">
+  <title>Conecta Local · Tecnología para tu local</title>
+  <meta name="description" content="Soluciones tecnológicas prácticas para locales comerciales: tarjetas de reseñas Google NFC, carteles QR WiFi, sitios web, galletas y llaveros personalizados.">
+  <meta name="theme-color" content="#1e3a8a">
   <style>
     /* Variables y reseteo básico */
     :root {
       --color-primary: #1e3a8a;       /* Azul profundo */
       --color-primary-dark: #172554;
       --color-accent: #2563eb;        /* Azul vibrante */
+      --color-violet: #7c3aed;        /* Violeta para degradados */
       --color-whatsapp: #25d366;      /* Verde WhatsApp */
       --color-whatsapp-dark: #128c7e;
       --color-bg: #f8fafc;            /* Fondo gris claro */
@@ -45,6 +47,7 @@
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
       padding-bottom: 90px; /* Espacio para el botón flotante en móvil */
+      overflow-x: hidden;
     }
 
     /* Contenedor central */
@@ -57,7 +60,9 @@
 
     /* Encabezado / Barra superior */
     .header {
-      background-color: var(--color-surface);
+      background-color: rgba(255, 255, 255, 0.85);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      backdrop-filter: saturate(180%) blur(12px);
       border-bottom: 1px solid var(--color-border);
       position: sticky;
       top: 0;
@@ -68,35 +73,107 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 20px;
+      gap: 10px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    /* Marca: logo + nombre */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-violet) 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      min-width: 0;
     }
 
     .brand-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .brand-tagline {
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
     }
 
-    .brand-badge {
-      background-color: #dbeafe;
-      color: var(--color-accent);
-      font-size: 0.75rem;
-      padding: 2px 8px;
+    /* Selector de idioma */
+    .lang-switch {
+      display: inline-flex;
+      background-color: #f1f5f9;
+      border: 1px solid var(--color-border);
       border-radius: 999px;
-      font-weight: 600;
+      padding: 3px;
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--color-text-muted);
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 999px;
+      cursor: pointer;
+      min-width: 34px;
+      min-height: 30px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-switch button:hover {
+      color: var(--color-primary);
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      background-color: var(--color-surface);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-header-wa {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      background-color: #25d366;
+      background-color: var(--color-whatsapp);
       color: #ffffff;
-      padding: 8px 14px;
+      width: 38px;
+      height: 38px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -104,34 +181,65 @@
       transition: background-color 0.2s ease;
     }
 
+    .btn-header-wa span {
+      display: none;
+    }
+
     .btn-header-wa:hover {
       background-color: var(--color-whatsapp-dark);
     }
 
     /* Hero */
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(600px 300px at 15% 0%, rgba(37, 99, 235, 0.12), transparent 70%),
+        radial-gradient(500px 280px at 90% 20%, rgba(124, 58, 237, 0.10), transparent 70%);
+    }
+
     .hero {
       padding: 44px 0 36px 0;
       text-align: center;
     }
 
     .hero-tag {
-      display: inline-block;
-      background-color: #e0f2fe;
-      color: #0369a1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--color-surface);
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
       font-size: 0.85rem;
       font-weight: 600;
-      padding: 4px 14px;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
     }
 
     .hero-title {
-      font-size: 1.9rem;
-      line-height: 1.25;
+      font-size: 1.95rem;
+      line-height: 1.2;
       color: var(--color-primary-dark);
       margin-bottom: 16px;
       font-weight: 800;
       letter-spacing: -0.02em;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--color-accent), var(--color-violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .hero-subtitle {
@@ -150,6 +258,29 @@
       align-items: center;
       max-width: 360px;
       margin: 0 auto;
+    }
+
+    .hero-chips {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      margin-top: 24px;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .hero-chips li {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-chips svg {
+      color: #10b981;
+      flex-shrink: 0;
     }
 
     /* Botones */
@@ -235,8 +366,8 @@
     }
 
     .service-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
       border-color: #cbd5e1;
     }
 
@@ -302,7 +433,7 @@
 
     /* Beneficios / Cómo funciona */
     .features-box {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
       color: #ffffff;
       border-radius: var(--radius-lg);
       padding: 32px 24px;
@@ -400,10 +531,26 @@
     /* Pie de página */
     .footer {
       border-top: 1px solid var(--color-border);
-      padding: 24px 0;
+      padding: 28px 0;
       text-align: center;
       color: var(--color-text-muted);
       font-size: 0.85rem;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--color-primary-dark);
+      font-weight: 700;
+    }
+
+    .footer-brand .brand-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      box-shadow: none;
     }
 
     .footer p {
@@ -443,14 +590,44 @@
       height: 28px;
     }
 
+    /* Pantallas muy angostas: se oculta el lema de la marca */
+    @media (max-width: 400px) {
+      .brand-tagline {
+        display: none;
+      }
+    }
+
     /* Adaptación pantallas medianas y grandes (tablets y PC) */
     @media (min-width: 640px) {
+      .btn-header-wa {
+        width: auto;
+        height: auto;
+        padding: 8px 14px;
+      }
+
+      .btn-header-wa span {
+        display: inline;
+      }
+
+      .brand-logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      .brand-name {
+        font-size: 1.15rem;
+      }
+
+      .brand-tagline {
+        font-size: 0.78rem;
+      }
+
       .hero {
-        padding: 60px 0 44px 0;
+        padding: 68px 0 52px 0;
       }
 
       .hero-title {
-        font-size: 2.6rem;
+        font-size: 2.7rem;
       }
 
       .hero-subtitle {
@@ -503,53 +680,88 @@
 </head>
 <body>
 
+  <!-- Íconos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 20 20">
+      <path fill="currentColor" fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+    </symbol>
+    <symbol id="i-logo" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l1.5-5h15L21 9"/>
+        <path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/>
+        <path d="M5 12v8h14v-8"/>
+        <path d="M10 20v-4h4v4"/>
+      </g>
+    </symbol>
+  </svg>
+
   <!-- Encabezado -->
   <header class="header">
     <div class="container header-inner">
-      <a href="#" class="brand-name">
-        <span>Tomás</span>
-        <span class="brand-badge">Tecnología para tu local</span>
+      <a href="#" class="brand" aria-label="Conecta Local">
+        <span class="brand-logo">
+          <svg width="20" height="20"><use href="#i-logo"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Conecta Local</span>
+          <span class="brand-tagline" data-i18n="brand.tagline">Tecnología para tu local</span>
+        </span>
       </a>
-      <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20consultar%20por%20servicios%20para%20mi%20local" 
-         target="_blank" 
-         rel="noopener noreferrer" 
-         class="btn-header-wa"
-         aria-label="Contactar por WhatsApp">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-        </svg>
-        <span>WhatsApp</span>
-      </a>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Idioma / Language / Idioma">
+          <button type="button" data-lang="es" aria-pressed="true" lang="es" title="Español">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
+          <button type="button" data-lang="pt" aria-pressed="false" lang="pt" title="Português">PT</button>
+        </div>
+        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20consultar%20por%20servicios%20para%20mi%20local"
+           data-wa="general"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn-header-wa"
+           aria-label="WhatsApp">
+          <svg width="18" height="18"><use href="#i-wa"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <span class="hero-tag">Tecnología simple para locales y cafeterías</span>
-      <h1 class="hero-title">Atrae más clientes y mejora la experiencia en tu local</h1>
-      <p class="hero-subtitle">
-        Te ayudo a conseguir más reseñas en Google, conectar rápido el WiFi de tus clientes, tener tu propia web y regalar galletas con tu marca.
+  <!-- Hero -->
+  <div class="hero-wrap">
+    <section class="container hero">
+      <span class="hero-tag"><span class="hero-tag-dot"></span><span data-i18n="hero.tag">Tecnología simple para locales y cafeterías</span></span>
+      <h1 class="hero-title" data-i18n-html="hero.title">Atrae más clientes y <span class="highlight">mejora la experiencia</span> en tu local</h1>
+      <p class="hero-subtitle" data-i18n="hero.sub">
+        Te ayudo a conseguir más reseñas en Google, conectar rápido el WiFi de tus clientes, tener tu propia web y regalar galletas y llaveros con tu marca.
       </p>
       <div class="hero-actions">
-        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20cotizar%20servicios%20para%20mi%20local" 
-           target="_blank" 
-           rel="noopener noreferrer" 
+        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20cotizar%20servicios%20para%20mi%20local"
+           data-wa="quote"
+           target="_blank"
+           rel="noopener noreferrer"
            class="btn btn-whatsapp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-          <span>Escríbeme por WhatsApp</span>
+          <svg width="20" height="20"><use href="#i-wa"/></svg>
+          <span data-i18n="hero.cta">Escríbeme por WhatsApp</span>
         </a>
-        <a href="#servicios" class="btn btn-secondary">Ver servicios</a>
+        <a href="#servicios" class="btn btn-secondary" data-i18n="hero.services">Ver servicios</a>
       </div>
+      <ul class="hero-chips">
+        <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="chip.1">Funciona con iPhone y Android</span></li>
+        <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="chip.2">Con el diseño de tu marca</span></li>
+        <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="chip.3">Pedidos desde pocas unidades</span></li>
+      </ul>
     </section>
+  </div>
 
+  <main class="container">
     <!-- Servicios -->
     <section class="section" id="servicios">
       <div class="section-header">
-        <h2 class="section-title">Servicios para tu negocio</h2>
-        <p class="section-desc">Soluciones concretas, sin tecnicismos raros y pensadas para instalar y usar desde el primer día.</p>
+        <h2 class="section-title" data-i18n="services.title">Servicios para tu negocio</h2>
+        <p class="section-desc" data-i18n="services.desc">Soluciones concretas, sin tecnicismos raros y pensadas para instalar y usar desde el primer día.</p>
       </div>
 
       <div class="services-grid">
@@ -560,36 +772,21 @@
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
             </svg>
           </div>
-          <h3 class="service-title">Tarjetas de reseñas Google con NFC</h3>
-          <p class="service-description">
+          <h3 class="service-title" data-i18n="s1.t">Tarjetas de reseñas Google con NFC</h3>
+          <p class="service-description" data-i18n="s1.d">
             Tus clientes solo acercan su teléfono (o escanean el código QR) y se les abre directamente la página para dejarte una reseña en Google.
           </p>
           <ul class="service-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Funciona con iPhone y Android sin instalar nada.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Configuración incluida directo a tu perfil de negocio.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Formato tarjeta o placa resistente para mostrador o mesa.</span>
-            </li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s1.f1">Funciona con iPhone y Android sin instalar nada.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s1.f2">Configuración incluida directo a tu perfil de negocio.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s1.f3">Formato tarjeta o placa resistente para mostrador o mesa.</span></li>
           </ul>
-          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20las%20tarjetas%20NFC%20de%20Google" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="btn btn-secondary service-btn">
-            Consultar por tarjetas NFC
-          </a>
+          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20las%20tarjetas%20NFC%20de%20Google"
+             data-wa="nfc"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-secondary service-btn"
+             data-i18n="s1.btn">Consultar por tarjetas NFC</a>
         </article>
 
         <!-- Servicio 2: Carteles QR WiFi -->
@@ -602,36 +799,21 @@
               <line x1="12" y1="20" x2="12.01" y2="20"/>
             </svg>
           </div>
-          <h3 class="service-title">Carteles QR para WiFi</h3>
-          <p class="service-description">
+          <h3 class="service-title" data-i18n="s2.t">Carteles QR para WiFi</h3>
+          <p class="service-description" data-i18n="s2.d">
             Se acabaron las contraseñas largas anotadas en servilletas. Tus clientes escanean el cartel con la cámara y se conectan a tu red al instante.
           </p>
           <ul class="service-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Ahorra tiempo a tu equipo al atender mesas.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Diseño limpio con el logo y colores de tu local.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Se conectan sin escribir la clave, desde cualquier celular.</span>
-            </li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s2.f1">Ahorra tiempo a tu equipo al atender mesas.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s2.f2">Diseño limpio con el logo y colores de tu local.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s2.f3">Se conectan sin escribir la clave, desde cualquier celular.</span></li>
           </ul>
-          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20los%20carteles%20QR%20WiFi" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="btn btn-secondary service-btn">
-            Consultar por carteles WiFi
-          </a>
+          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20los%20carteles%20QR%20WiFi"
+             data-wa="wifi"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-secondary service-btn"
+             data-i18n="s2.btn">Consultar por carteles WiFi</a>
         </article>
 
         <!-- Servicio 3: Sitios Web para Locales -->
@@ -643,36 +825,21 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <h3 class="service-title">Sitios web para locales</h3>
-          <p class="service-description">
+          <h3 class="service-title" data-i18n="s3.t">Sitios web para locales</h3>
+          <p class="service-description" data-i18n="s3.d">
             Páginas web claras, veloces y diseñadas especialmente para celulares. Tus clientes encontrarán tu carta, horarios, mapa y botón a WhatsApp sin rodeos.
           </p>
           <ul class="service-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Menú digital o catálogo de productos accesible.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Ubicación en Google Maps y llamada directa.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Carga ultra rápida sin plataformas lentas ni pesadas.</span>
-            </li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s3.f1">Menú digital o catálogo de productos accesible.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s3.f2">Ubicación en Google Maps y llamada directa.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s3.f3">Carga ultra rápida sin plataformas lentas ni pesadas.</span></li>
           </ul>
-          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20un%20sitio%20web%20para%20mi%20local" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="btn btn-secondary service-btn">
-            Consultar por sitio web
-          </a>
+          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20un%20sitio%20web%20para%20mi%20local"
+             data-wa="web"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-secondary service-btn"
+             data-i18n="s3.btn">Consultar por sitio web</a>
         </article>
 
         <!-- Servicio 4: Galletas personalizadas -->
@@ -686,36 +853,21 @@
               <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
             </svg>
           </div>
-          <h3 class="service-title">Galletas personalizadas</h3>
-          <p class="service-description">
+          <h3 class="service-title" data-i18n="s4.t">Galletas personalizadas</h3>
+          <p class="service-description" data-i18n="s4.d">
             Galletas decoradas con el logo, nombre o diseño de tu marca. Ideales para cafeterías, regalos corporativos, eventos y fechas especiales.
           </p>
           <ul class="service-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Con tu logo, colores o mensaje, hechas a pedido.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Packs para eventos, clientes y regalos de empresa.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>También diseño cortadores y sellos 3D con tu logo para que hagas las tuyas.</span>
-            </li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s4.f1">Con tu logo, colores o mensaje, hechas a pedido.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s4.f2">Packs para eventos, clientes y regalos de empresa.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s4.f3">También diseño cortadores y sellos 3D con tu logo para que hagas las tuyas.</span></li>
           </ul>
-          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20galletas%20personalizadas" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="btn btn-secondary service-btn">
-            Consultar por galletas
-          </a>
+          <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20galletas%20personalizadas"
+             data-wa="cookies"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-secondary service-btn"
+             data-i18n="s4.btn">Consultar por galletas</a>
         </article>
 
         <!-- Servicio 5: Llaveros personalizados -->
@@ -725,63 +877,48 @@
               <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
             </svg>
           </div>
-          <h3 class="service-title">Llaveros personalizados</h3>
-          <p class="service-description">
+          <h3 class="service-title" data-i18n="s5.t">Llaveros personalizados</h3>
+          <p class="service-description" data-i18n="s5.d">
             Llaveros impresos en 3D con el diseño que tú elijas: tu logo, el nombre de tu local o una figura a tu gusto. Ideales para regalar a clientes o vender en tu mostrador.
           </p>
           <ul class="service-features">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Tú eliges el diseño; si no tienes uno, te ayudo a armarlo.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Hasta 4 colores, con los de tu marca.</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span>Desde pocas unidades hasta pedidos para eventos y promociones.</span>
-            </li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s5.f1">Tú eliges el diseño; si no tienes uno, te ayudo a armarlo.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s5.f2">Hasta 4 colores, con los de tu marca.</span></li>
+            <li><svg width="16" height="16"><use href="#i-check"/></svg><span data-i18n="s5.f3">Desde pocas unidades hasta pedidos para eventos y promociones.</span></li>
           </ul>
           <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20consultar%20por%20llaveros%20personalizados%20para%20mi%20local"
+             data-wa="keys"
              target="_blank"
              rel="noopener noreferrer"
-             class="btn btn-secondary service-btn">
-            Consultar por llaveros
-          </a>
+             class="btn btn-secondary service-btn"
+             data-i18n="s5.btn">Consultar por llaveros</a>
         </article>
       </div>
 
       <!-- Cuadro de ventajas -->
       <div class="features-box">
-        <h3>¿Por qué sumar esto a tu local?</h3>
-        <p>Soluciones pensadas para dueños de locales que quieren mejorar su atención sin gastar de más ni complicarse la vida.</p>
+        <h3 data-i18n="why.h">¿Por qué sumar esto a tu local?</h3>
+        <p data-i18n="why.p">Soluciones pensadas para dueños de locales que quieren mejorar su atención sin gastar de más ni complicarse la vida.</p>
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-item-icon">1</div>
             <div>
-              <h4>Atención directa</h4>
-              <p>Hablas directamente conmigo. Sin intermediarios ni respuestas automáticas.</p>
+              <h4 data-i18n="why.1h">Atención directa</h4>
+              <p data-i18n="why.1p">Hablas directamente conmigo. Sin intermediarios ni respuestas automáticas.</p>
             </div>
           </div>
           <div class="feature-item">
             <div class="feature-item-icon">2</div>
             <div>
-              <h4>Listo para usar</h4>
-              <p>Te entrego todo probado, configurado y listo para colocar en tu mostrador o mesas.</p>
+              <h4 data-i18n="why.2h">Listo para usar</h4>
+              <p data-i18n="why.2p">Te entrego todo probado, configurado y listo para colocar en tu mostrador o mesas.</p>
             </div>
           </div>
           <div class="feature-item">
             <div class="feature-item-icon">3</div>
             <div>
-              <h4>Foco en celular</h4>
-              <p>La mayoría de tus clientes llega con el celular en la mano. Todo está pensado para ellos.</p>
+              <h4 data-i18n="why.3h">Foco en celular</h4>
+              <p data-i18n="why.3p">La mayoría de tus clientes llega con el celular en la mano. Todo está pensado para ellos.</p>
             </div>
           </div>
         </div>
@@ -789,16 +926,15 @@
 
       <!-- Tarjeta CTA de cierre -->
       <div class="cta-card">
-        <h3>¿Tienes dudas o quieres cotizar para tu local?</h3>
-        <p>Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
-        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local" 
-           target="_blank" 
-           rel="noopener noreferrer" 
+        <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
+        <p data-i18n="cta.p">Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
+        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local"
+           data-wa="talk"
+           target="_blank"
+           rel="noopener noreferrer"
            class="btn btn-whatsapp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-          <span>Conversar por WhatsApp</span>
+          <svg width="20" height="20"><use href="#i-wa"/></svg>
+          <span data-i18n="cta.btn">Conversar por WhatsApp</span>
         </a>
       </div>
     </section>
@@ -807,22 +943,274 @@
   <!-- Pie de página -->
   <footer class="footer">
     <div class="container">
-      <p><strong>Tomás · Tecnología para tu local</strong></p>
-      <p>Servicios para cafeterías, tiendas y negocios en Chile.</p>
+      <div class="footer-brand">
+        <span class="brand-logo"><svg width="15" height="15"><use href="#i-logo"/></svg></span>
+        <span>Conecta Local</span>
+      </div>
+      <p data-i18n="foot.1">Tecnología para tu local · Servicios para cafeterías, tiendas y negocios en Chile.</p>
     </div>
   </footer>
 
   <!-- Botón flotante de WhatsApp siempre visible -->
-  <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20hacerte%20una%20consulta" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     class="wa-floating" 
-     aria-label="Abrir chat de WhatsApp con Tomás">
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-    </svg>
+  <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20hacerte%20una%20consulta"
+     data-wa="float"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="wa-floating"
+     aria-label="WhatsApp">
+    <svg><use href="#i-wa"/></svg>
     <span>WhatsApp</span>
   </a>
+
+  <script>
+    // Traducciones: español (por defecto), inglés y portugués.
+    // El texto en español también está escrito en el HTML, así la página se ve bien aunque falle el script.
+    (function () {
+      var WA = 'https://wa.me/56979560426?text=';
+      var T = {
+        es: {
+          'meta.title': 'Conecta Local · Tecnología para tu local',
+          'brand.tagline': 'Tecnología para tu local',
+          'hero.tag': 'Tecnología simple para locales y cafeterías',
+          'hero.title': 'Atrae más clientes y <span class="highlight">mejora la experiencia</span> en tu local',
+          'hero.sub': 'Te ayudo a conseguir más reseñas en Google, conectar rápido el WiFi de tus clientes, tener tu propia web y regalar galletas y llaveros con tu marca.',
+          'hero.cta': 'Escríbeme por WhatsApp',
+          'hero.services': 'Ver servicios',
+          'chip.1': 'Funciona con iPhone y Android',
+          'chip.2': 'Con el diseño de tu marca',
+          'chip.3': 'Pedidos desde pocas unidades',
+          'services.title': 'Servicios para tu negocio',
+          'services.desc': 'Soluciones concretas, sin tecnicismos raros y pensadas para instalar y usar desde el primer día.',
+          's1.t': 'Tarjetas de reseñas Google con NFC',
+          's1.d': 'Tus clientes solo acercan su teléfono (o escanean el código QR) y se les abre directamente la página para dejarte una reseña en Google.',
+          's1.f1': 'Funciona con iPhone y Android sin instalar nada.',
+          's1.f2': 'Configuración incluida directo a tu perfil de negocio.',
+          's1.f3': 'Formato tarjeta o placa resistente para mostrador o mesa.',
+          's1.btn': 'Consultar por tarjetas NFC',
+          's2.t': 'Carteles QR para WiFi',
+          's2.d': 'Se acabaron las contraseñas largas anotadas en servilletas. Tus clientes escanean el cartel con la cámara y se conectan a tu red al instante.',
+          's2.f1': 'Ahorra tiempo a tu equipo al atender mesas.',
+          's2.f2': 'Diseño limpio con el logo y colores de tu local.',
+          's2.f3': 'Se conectan sin escribir la clave, desde cualquier celular.',
+          's2.btn': 'Consultar por carteles WiFi',
+          's3.t': 'Sitios web para locales',
+          's3.d': 'Páginas web claras, veloces y diseñadas especialmente para celulares. Tus clientes encontrarán tu carta, horarios, mapa y botón a WhatsApp sin rodeos.',
+          's3.f1': 'Menú digital o catálogo de productos accesible.',
+          's3.f2': 'Ubicación en Google Maps y llamada directa.',
+          's3.f3': 'Carga ultra rápida sin plataformas lentas ni pesadas.',
+          's3.btn': 'Consultar por sitio web',
+          's4.t': 'Galletas personalizadas',
+          's4.d': 'Galletas decoradas con el logo, nombre o diseño de tu marca. Ideales para cafeterías, regalos corporativos, eventos y fechas especiales.',
+          's4.f1': 'Con tu logo, colores o mensaje, hechas a pedido.',
+          's4.f2': 'Packs para eventos, clientes y regalos de empresa.',
+          's4.f3': 'También diseño cortadores y sellos 3D con tu logo para que hagas las tuyas.',
+          's4.btn': 'Consultar por galletas',
+          's5.t': 'Llaveros personalizados',
+          's5.d': 'Llaveros impresos en 3D con el diseño que tú elijas: tu logo, el nombre de tu local o una figura a tu gusto. Ideales para regalar a clientes o vender en tu mostrador.',
+          's5.f1': 'Tú eliges el diseño; si no tienes uno, te ayudo a armarlo.',
+          's5.f2': 'Hasta 4 colores, con los de tu marca.',
+          's5.f3': 'Desde pocas unidades hasta pedidos para eventos y promociones.',
+          's5.btn': 'Consultar por llaveros',
+          'why.h': '¿Por qué sumar esto a tu local?',
+          'why.p': 'Soluciones pensadas para dueños de locales que quieren mejorar su atención sin gastar de más ni complicarse la vida.',
+          'why.1h': 'Atención directa',
+          'why.1p': 'Hablas directamente conmigo. Sin intermediarios ni respuestas automáticas.',
+          'why.2h': 'Listo para usar',
+          'why.2p': 'Te entrego todo probado, configurado y listo para colocar en tu mostrador o mesas.',
+          'why.3h': 'Foco en celular',
+          'why.3p': 'La mayoría de tus clientes llega con el celular en la mano. Todo está pensado para ellos.',
+          'cta.h': '¿Tienes dudas o quieres cotizar para tu local?',
+          'cta.p': 'Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.',
+          'cta.btn': 'Conversar por WhatsApp',
+          'foot.1': 'Tecnología para tu local · Servicios para cafeterías, tiendas y negocios en Chile.',
+          'wa.general': 'Hola Tomás, me gustaría consultar por servicios para mi local',
+          'wa.quote': 'Hola Tomás, me gustaría cotizar servicios para mi local',
+          'wa.nfc': 'Hola Tomás, quiero consultar por las tarjetas NFC de Google',
+          'wa.wifi': 'Hola Tomás, quiero consultar por los carteles QR WiFi',
+          'wa.web': 'Hola Tomás, quiero consultar por un sitio web para mi local',
+          'wa.cookies': 'Hola Tomás, quiero consultar por galletas personalizadas',
+          'wa.keys': 'Hola Tomás, quiero consultar por llaveros personalizados para mi local',
+          'wa.talk': 'Hola Tomás, quiero conversar sobre lo que necesito para mi local',
+          'wa.float': 'Hola Tomás, me gustaría hacerte una consulta'
+        },
+        en: {
+          'meta.title': 'Conecta Local · Tech for your business',
+          'brand.tagline': 'Tech for your business',
+          'hero.tag': 'Simple tech for shops and cafés',
+          'hero.title': 'Attract more customers and <span class="highlight">improve the experience</span> at your business',
+          'hero.sub': 'I help you get more Google reviews, connect your customers to WiFi in seconds, have your own website, and give away cookies and keychains with your brand.',
+          'hero.cta': 'Message me on WhatsApp',
+          'hero.services': 'See services',
+          'chip.1': 'Works with iPhone and Android',
+          'chip.2': 'Designed with your brand',
+          'chip.3': 'Small orders welcome',
+          'services.title': 'Services for your business',
+          'services.desc': 'Practical solutions, no confusing tech talk, ready to set up and use from day one.',
+          's1.t': 'Google review cards with NFC',
+          's1.d': 'Your customers just tap their phone (or scan the QR code) and the page to leave you a Google review opens right away.',
+          's1.f1': 'Works with iPhone and Android, no app needed.',
+          's1.f2': 'Setup included, linked straight to your business profile.',
+          's1.f3': 'Card or sturdy stand format for your counter or tables.',
+          's1.btn': 'Ask about NFC cards',
+          's2.t': 'WiFi QR signs',
+          's2.d': 'No more long passwords written on napkins. Your customers scan the sign with their camera and connect to your network instantly.',
+          's2.f1': 'Saves your staff time when serving tables.',
+          's2.f2': 'Clean design with your logo and colors.',
+          's2.f3': 'They connect without typing the password, from any phone.',
+          's2.btn': 'Ask about WiFi signs',
+          's3.t': 'Websites for local businesses',
+          's3.d': 'Clear, fast websites designed for phones. Your customers will find your menu, hours, map and WhatsApp button without any hassle.',
+          's3.f1': 'Digital menu or easy-to-browse product catalog.',
+          's3.f2': 'Google Maps location and one-tap calling.',
+          's3.f3': 'Super fast loading, no slow or heavy platforms.',
+          's3.btn': 'Ask about a website',
+          's4.t': 'Custom cookies',
+          's4.d': 'Cookies decorated with your logo, name or brand design. Perfect for cafés, corporate gifts, events and special dates.',
+          's4.f1': 'With your logo, colors or message, made to order.',
+          's4.f2': 'Packs for events, customers and company gifts.',
+          's4.f3': 'I also design 3D cutters and stamps with your logo so you can make your own.',
+          's4.btn': 'Ask about cookies',
+          's5.t': 'Custom keychains',
+          's5.d': '3D-printed keychains with the design you choose: your logo, your shop’s name or any figure you like. Great as customer gifts or to sell at your counter.',
+          's5.f1': 'You choose the design; if you don’t have one, I’ll help you create it.',
+          's5.f2': 'Up to 4 colors, matching your brand.',
+          's5.f3': 'From a few units to orders for events and promotions.',
+          's5.btn': 'Ask about keychains',
+          'why.h': 'Why add this to your business?',
+          'why.p': 'Solutions for business owners who want to improve their service without overspending or complications.',
+          'why.1h': 'Direct contact',
+          'why.1p': 'You talk directly with me. No middlemen or automated replies.',
+          'why.2h': 'Ready to use',
+          'why.2p': 'Everything is delivered tested, set up and ready for your counter or tables.',
+          'why.3h': 'Mobile first',
+          'why.3p': 'Most of your customers arrive phone in hand. Everything is designed for them.',
+          'cta.h': 'Questions, or want a quote for your business?',
+          'cta.p': 'Message me on WhatsApp, tell me about your business and I’ll help you find the best option for what you need.',
+          'cta.btn': 'Chat on WhatsApp',
+          'foot.1': 'Tech for your business · Services for cafés, shops and businesses in Chile.',
+          'wa.general': 'Hi Tomás, I’d like to ask about services for my business',
+          'wa.quote': 'Hi Tomás, I’d like a quote for my business',
+          'wa.nfc': 'Hi Tomás, I’d like to ask about the Google NFC cards',
+          'wa.wifi': 'Hi Tomás, I’d like to ask about the WiFi QR signs',
+          'wa.web': 'Hi Tomás, I’d like to ask about a website for my business',
+          'wa.cookies': 'Hi Tomás, I’d like to ask about custom cookies',
+          'wa.keys': 'Hi Tomás, I’d like to ask about custom keychains for my business',
+          'wa.talk': 'Hi Tomás, I’d like to talk about what my business needs',
+          'wa.float': 'Hi Tomás, I have a question'
+        },
+        pt: {
+          'meta.title': 'Conecta Local · Tecnologia para o seu negócio',
+          'brand.tagline': 'Tecnologia para o seu negócio',
+          'hero.tag': 'Tecnologia simples para lojas e cafeterias',
+          'hero.title': 'Atraia mais clientes e <span class="highlight">melhore a experiência</span> no seu negócio',
+          'hero.sub': 'Eu te ajudo a conseguir mais avaliações no Google, conectar seus clientes ao WiFi em segundos, ter seu próprio site e presentear com biscoitos e chaveiros da sua marca.',
+          'hero.cta': 'Fale comigo no WhatsApp',
+          'hero.services': 'Ver serviços',
+          'chip.1': 'Funciona com iPhone e Android',
+          'chip.2': 'Com a identidade da sua marca',
+          'chip.3': 'Pedidos a partir de poucas unidades',
+          'services.title': 'Serviços para o seu negócio',
+          'services.desc': 'Soluções práticas, sem termos técnicos complicados, prontas para instalar e usar desde o primeiro dia.',
+          's1.t': 'Cartões de avaliação Google com NFC',
+          's1.d': 'Seus clientes só aproximam o celular (ou escaneiam o QR code) e abre direto a página para deixar uma avaliação no Google.',
+          's1.f1': 'Funciona com iPhone e Android sem instalar nada.',
+          's1.f2': 'Configuração incluída, direto para o perfil da sua empresa.',
+          's1.f3': 'Formato cartão ou placa resistente para balcão ou mesa.',
+          's1.btn': 'Perguntar sobre cartões NFC',
+          's2.t': 'Placas QR para WiFi',
+          's2.d': 'Chega de senhas longas anotadas em guardanapos. Seus clientes escaneiam a placa com a câmera e se conectam à sua rede na hora.',
+          's2.f1': 'Economiza tempo da sua equipe no atendimento às mesas.',
+          's2.f2': 'Design limpo com o logo e as cores do seu negócio.',
+          's2.f3': 'Conectam sem digitar a senha, de qualquer celular.',
+          's2.btn': 'Perguntar sobre placas WiFi',
+          's3.t': 'Sites para negócios locais',
+          's3.d': 'Páginas claras, rápidas e pensadas para celular. Seus clientes encontram o cardápio, horários, mapa e botão do WhatsApp sem complicação.',
+          's3.f1': 'Cardápio digital ou catálogo de produtos fácil de ver.',
+          's3.f2': 'Localização no Google Maps e ligação direta.',
+          's3.f3': 'Carregamento super rápido, sem plataformas lentas ou pesadas.',
+          's3.btn': 'Perguntar sobre site',
+          's4.t': 'Biscoitos personalizados',
+          's4.d': 'Biscoitos decorados com o logo, nome ou design da sua marca. Ideais para cafeterias, brindes corporativos, eventos e datas especiais.',
+          's4.f1': 'Com seu logo, cores ou mensagem, feitos sob encomenda.',
+          's4.f2': 'Kits para eventos, clientes e presentes de empresa.',
+          's4.f3': 'Também crio cortadores e carimbos 3D com seu logo para você fazer os seus.',
+          's4.btn': 'Perguntar sobre biscoitos',
+          's5.t': 'Chaveiros personalizados',
+          's5.d': 'Chaveiros impressos em 3D com o design que você escolher: seu logo, o nome do seu negócio ou uma figura do seu gosto. Ideais para presentear clientes ou vender no balcão.',
+          's5.f1': 'Você escolhe o design; se não tiver um, eu te ajudo a criar.',
+          's5.f2': 'Até 4 cores, com as da sua marca.',
+          's5.f3': 'De poucas unidades até pedidos para eventos e promoções.',
+          's5.btn': 'Perguntar sobre chaveiros',
+          'why.h': 'Por que levar isso para o seu negócio?',
+          'why.p': 'Soluções pensadas para donos de negócios que querem melhorar o atendimento sem gastar demais nem complicar a vida.',
+          'why.1h': 'Atendimento direto',
+          'why.1p': 'Você fala direto comigo. Sem intermediários nem respostas automáticas.',
+          'why.2h': 'Pronto para usar',
+          'why.2p': 'Entrego tudo testado, configurado e pronto para colocar no balcão ou nas mesas.',
+          'why.3h': 'Foco no celular',
+          'why.3p': 'A maioria dos seus clientes chega com o celular na mão. Tudo é pensado para eles.',
+          'cta.h': 'Tem dúvidas ou quer um orçamento para o seu negócio?',
+          'cta.p': 'Me chame no WhatsApp, conte sobre o seu negócio e eu te ajudo a escolher a melhor opção para o que você precisa.',
+          'cta.btn': 'Conversar no WhatsApp',
+          'foot.1': 'Tecnologia para o seu negócio · Serviços para cafeterias, lojas e negócios no Chile.',
+          'wa.general': 'Olá Tomás, gostaria de saber sobre serviços para o meu negócio',
+          'wa.quote': 'Olá Tomás, gostaria de um orçamento para o meu negócio',
+          'wa.nfc': 'Olá Tomás, quero saber sobre os cartões NFC do Google',
+          'wa.wifi': 'Olá Tomás, quero saber sobre as placas QR de WiFi',
+          'wa.web': 'Olá Tomás, quero saber sobre um site para o meu negócio',
+          'wa.cookies': 'Olá Tomás, quero saber sobre biscoitos personalizados',
+          'wa.keys': 'Olá Tomás, quero saber sobre chaveiros personalizados para o meu negócio',
+          'wa.talk': 'Olá Tomás, quero conversar sobre o que o meu negócio precisa',
+          'wa.float': 'Olá Tomás, gostaria de tirar uma dúvida'
+        }
+      };
+      var HTML_LANG = { es: 'es-CL', en: 'en', pt: 'pt-BR' };
+
+      function aplicar(lang) {
+        var t = T[lang] || T.es;
+        document.documentElement.lang = HTML_LANG[lang] || 'es-CL';
+        document.title = t['meta.title'];
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var k = el.getAttribute('data-i18n');
+          if (t[k]) el.textContent = t[k];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+          var k = el.getAttribute('data-i18n-html');
+          if (t[k]) el.innerHTML = t[k];
+        });
+        document.querySelectorAll('[data-wa]').forEach(function (el) {
+          var k = 'wa.' + el.getAttribute('data-wa');
+          if (t[k]) el.href = WA + encodeURIComponent(t[k]);
+        });
+        document.querySelectorAll('.lang-switch button').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+        });
+      }
+
+      function guardar(lang) {
+        try { localStorage.setItem('idioma', lang); } catch (e) { /* sin almacenamiento: no pasa nada */ }
+      }
+
+      function inicial() {
+        var guardado = null;
+        try { guardado = localStorage.getItem('idioma'); } catch (e) { /* ignorar */ }
+        if (guardado && T[guardado]) return guardado;
+        var nav = (navigator.language || 'es').slice(0, 2).toLowerCase();
+        return T[nav] ? nav : 'es';
+      }
+
+      document.querySelectorAll('.lang-switch button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.getAttribute('data-lang');
+          aplicar(lang);
+          guardar(lang);
+        });
+      });
+
+      var lang = inicial();
+      if (lang !== 'es') aplicar(lang);
+    })();
+  </script>
 
 </body>
 </html>

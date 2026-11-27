@@ -21,3 +21,6 @@ Reglas:
 - Si Codex o agy quedan esperando un permiso (`blocked`), no lo apruebes: dile a Tomás en qué panel responder.
 - No cierres paneles ni detengas el servidor de Herdr.
 - Git portátil está en `C:\Users\tomas.urrutia\Desktop\tomas\herramientas\git\cmd`.
+
+## Bitácora compartida
+- Cuando le pases una tarea a Codex o a agy, recuérdales anotar en `docs/bitacora-equipo.md` al terminar. Tú también anotas lo tuyo. Antes de repartir, lee las últimas entradas.

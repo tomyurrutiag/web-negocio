@@ -4,12 +4,21 @@
 Negocio de Tomás Urrutia: sitios web para locales + tarjetas de reseñas Google (NFC + QR), QR WiFi y cortadores/sellos de galletas impresos en 3D.
 Esta carpeta guarda el **sitio web de muestra** del negocio y, después, los sitios de clientes (una subcarpeta por cliente).
 
-## Cómo trabajamos (dos IA + Tomás)
-1. **Antigravity construye**: trabaja siempre en una rama nueva (`git checkout -b nombre-tarea`), nunca directo en `main`.
+## Cómo trabajamos (tres IA + Tomás, desde el 27-11)
+Tomás le habla a Claude; Claude reparte. Nombres en Herdr: `claude-conecta`, `codex-conecta`, `agy-conecta`.
+
+**Roles según fortalezas:**
+- **Antigravity / Gemini (agy) — construye el diseño.** Maqueta y estilo visual, secciones nuevas, imágenes y textos de venta; investiga en internet referencias y competencia.
+- **Codex — parte técnica.** JavaScript (idiomas, botones de WhatsApp, formularios), rendimiento, accesibilidad, que nada se rompa; además es el segundo revisor técnico.
+- **Claude — jefe y revisor final.** Reparte las tareas, revisa cada rama (errores, seguridad, celular, textos en español) y le resume a Tomás.
+
+**Pasos:**
+1. Quien construye trabaja siempre en una rama nueva (`git checkout -b nombre-tarea`), nunca directo en `main`.
 2. Al terminar una tarea, hace **commit** con un mensaje claro en español (qué cambió y por qué).
-3. **Claude revisa** esa rama: errores, seguridad, que se vea bien en celular, textos.
-4. Se corrige lo que Claude encuentre.
+3. **Codex y Claude revisan** esa rama (Codex lo técnico; Claude lo final).
+4. Se corrige lo que encuentren.
 5. **Tomás aprueba** y recién ahí se une a `main` (`git merge`).
+6. Dos IA no editan el mismo archivo al mismo tiempo.
 
 ## Reglas
 - Idioma del sitio y de los commits: **español de Chile**, simple y claro.

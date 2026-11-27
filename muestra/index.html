@@ -83,29 +83,26 @@
     .header-nav {
       order: 3;
       flex: 1 0 100%;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 4px;
       padding-top: 8px;
       border-top: 1px solid var(--color-border);
       max-width: 100%;
     }
 
-    .header-nav::-webkit-scrollbar {
-      display: none;
-    }
-
     .header-nav a {
-      flex-shrink: 0;
-      white-space: nowrap;
+      display: grid;
+      place-items: center;
+      text-align: center;
       text-decoration: none;
       color: var(--color-text-muted);
       font-size: 0.85rem;
       font-weight: 600;
-      padding: 6px 12px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      padding: 6px 4px;
       border-radius: 999px;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
@@ -896,16 +893,14 @@
       }
 
       .header-nav {
-        order: 2;
-        flex: 0 1 auto;
+        display: flex;
+        flex: 0 0 auto;
         border-top: 0;
         padding-top: 0;
-        overflow-x: visible;
-        justify-content: center;
       }
 
-      .header-actions {
-        order: 3;
+      .header-nav a {
+        padding-inline: 10px;
       }
 
       section[id],
@@ -947,12 +942,6 @@
           <span class="brand-tagline" data-i18n="brand.tagline">Tecnología para tu local</span>
         </span>
       </a>
-      <nav class="header-nav" aria-label="Navegación principal">
-        <a href="#servicios" data-i18n="nav.services">Servicios</a>
-        <a href="#como-funciona" data-i18n="nav.how">Cómo funciona</a>
-        <a href="#faq" data-i18n="nav.faq">Preguntas</a>
-        <a href="#contacto" data-i18n="nav.contact">Contacto</a>
-      </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Idioma / Language / Idioma">
           <button type="button" data-lang="es" aria-pressed="true" lang="es" title="Español">ES</button>
@@ -969,6 +958,12 @@
           <span>WhatsApp</span>
         </a>
       </div>
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#servicios" data-i18n="nav.services">Servicios</a>
+        <a href="#como-funciona" data-i18n="nav.how">Cómo funciona</a>
+        <a href="#faq" data-i18n="nav.faq">Preguntas</a>
+        <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+      </nav>
     </div>
   </header>
 

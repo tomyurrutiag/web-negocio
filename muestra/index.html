@@ -731,6 +731,7 @@
       box-shadow: var(--shadow-sm);
     }
 
+    .cta-card h2,
     .cta-card h3 {
       font-size: 1.4rem;
       color: var(--color-primary-dark);
@@ -749,6 +750,87 @@
     .cta-card .btn {
       max-width: 340px;
       margin: 0 auto;
+    }
+
+    .quote-form {
+      max-width: 500px;
+      margin: 0 auto 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--color-border);
+      text-align: left;
+    }
+
+    .quote-form fieldset {
+      border: 0;
+      min-inline-size: 0;
+    }
+
+    .quote-form legend,
+    .quote-fields label {
+      font-weight: 700;
+    }
+
+    .quote-list {
+      list-style: none;
+      margin: 6px 0 16px;
+    }
+
+    .quote-service {
+      border-bottom: 1px solid var(--color-border);
+      padding: 4px 0;
+    }
+
+    .quote-choice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      cursor: pointer;
+    }
+
+    .quote-choice input {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--color-primary);
+    }
+
+    .quote-quantity {
+      padding: 0 0 8px 30px;
+    }
+
+    .quote-quantity input {
+      margin-top: 8px;
+    }
+
+    .quote-fields {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quote-fields input,
+    .quote-quantity input,
+    .quote-quantity select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 10px;
+      border: 1px solid var(--color-text-muted);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      font: inherit;
+    }
+
+    .cta-card .quote-error {
+      margin: 8px 0;
+      color: #991b1b;
+      text-align: left;
+    }
+
+    .quote-form .btn {
+      display: flex;
+      margin-top: 16px;
+      border: 0;
     }
 
     /* Pie de página */
@@ -1441,8 +1523,111 @@
 
     <!-- Tarjeta CTA de cierre -->
     <div class="cta-card" id="contacto">
-      <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
+      <h2 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h2>
       <p data-i18n="cta.p">Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
+      <form class="quote-form" novalidate autocomplete="off" hidden>
+        <h3 data-i18n="quote.title">Pide una cotización</h3>
+        <p data-i18n="quote.intro">Elige los servicios que te interesan y prepara tu mensaje.</p>
+        <fieldset>
+          <legend data-i18n="quote.services">Servicios</legend>
+          <span id="quote-amount" hidden data-i18n="quote.amount">Cantidad aproximada</span>
+          <ul class="quote-list">
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-0" data-i18n="s1.t">Tarjetas de reseñas Google con NFC</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-0" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-0" hidden disabled>
+              </div>
+            </li>
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-1" data-i18n="s2.t">Carteles QR para WiFi</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-1" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-1" hidden disabled>
+              </div>
+            </li>
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-2" data-i18n="s3.t">Sitios web para locales</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-2" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-2" hidden disabled>
+              </div>
+            </li>
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-3" data-i18n="s4.t">Galletas personalizadas</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-3" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-3" hidden disabled>
+              </div>
+            </li>
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-4" data-i18n="quote.cutters">Cortadores y sellos 3D</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-4" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-4" hidden disabled>
+              </div>
+            </li>
+            <li class="quote-service">
+              <label class="quote-choice">
+                <input type="checkbox">
+                <span id="quote-service-5" data-i18n="s5.t">Llaveros personalizados</span>
+              </label>
+              <div class="quote-quantity" hidden>
+                <select aria-labelledby="quote-amount quote-service-5" disabled>
+                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
+                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
+                </select>
+                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-5" hidden disabled>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+        <div class="quote-fields">
+          <label>
+            <span data-i18n="quote.shop">Nombre del local</span>
+            <input id="quote-shop" type="text" maxlength="100" required>
+          </label>
+          <label>
+            <span data-i18n="quote.area">Comuna</span>
+            <input id="quote-area" type="text" maxlength="100" required>
+          </label>
+        </div>
+        <p id="quote-error" class="quote-error" role="alert"></p>
+        <button type="submit" class="btn btn-whatsapp">
+          <svg aria-hidden="true" width="20" height="20"><use href="#i-wa"/></svg>
+          <span data-i18n="quote.open">Abrir WhatsApp</span>
+        </button>
+      </form>
       <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local"
          data-wa="talk"
          target="_blank"
@@ -1492,6 +1677,21 @@
           'nav.services': 'Servicios',
           'nav.how': 'Cómo funciona',
           'a11y.skip': 'Saltar al contenido',
+          'quote.title': 'Pide una cotización',
+          'quote.intro': 'Elige los servicios que te interesan y prepara tu mensaje.',
+          'quote.services': 'Servicios',
+          'quote.shop': 'Nombre del local',
+          'quote.area': 'Comuna',
+          'quote.amount': 'Cantidad aproximada',
+          'quote.unknown': 'Por definir',
+          'quote.enter': 'Ingresar cantidad',
+          'quote.open': 'Abrir WhatsApp',
+          'quote.greeting': 'Hola Tomás, me gustaría cotizar para mi local.',
+          'quote.error.services': 'Marca al menos un servicio.',
+          'quote.error.shop': 'Escribe el nombre de tu local.',
+          'quote.error.area': 'Escribe tu comuna.',
+          'quote.error.amount': 'Ingresa una cantidad entera mayor que cero.',
+          'quote.cutters': 'Cortadores y sellos 3D',
           'nav.faq': 'Preguntas',
           'nav.contact': 'Contacto',
           'hero.tag': 'Tecnología simple para locales y cafeterías',
@@ -1587,6 +1787,21 @@
           'nav.services': 'Services',
           'nav.how': 'How it works',
           'a11y.skip': 'Skip to content',
+          'quote.title': 'Request a quote',
+          'quote.intro': 'Choose the services you are interested in and prepare your message.',
+          'quote.services': 'Services',
+          'quote.shop': 'Business name',
+          'quote.area': 'Municipality',
+          'quote.amount': 'Approximate quantity',
+          'quote.unknown': 'To be decided',
+          'quote.enter': 'Enter a quantity',
+          'quote.open': 'Open WhatsApp',
+          'quote.greeting': 'Hi Tomás, I would like a quote for my business.',
+          'quote.error.services': 'Select at least one service.',
+          'quote.error.shop': 'Enter your business name.',
+          'quote.error.area': 'Enter your municipality.',
+          'quote.error.amount': 'Enter a whole number greater than zero.',
+          'quote.cutters': '3D cookie cutters and stamps',
           'nav.faq': 'FAQ',
           'nav.contact': 'Contact',
           'hero.tag': 'Simple tech for shops and cafés',
@@ -1682,6 +1897,21 @@
           'nav.services': 'Serviços',
           'nav.how': 'Como funciona',
           'a11y.skip': 'Pular para o conteúdo',
+          'quote.title': 'Peça um orçamento',
+          'quote.intro': 'Escolha os serviços de seu interesse e prepare sua mensagem.',
+          'quote.services': 'Serviços',
+          'quote.shop': 'Nome do negócio',
+          'quote.area': 'Município',
+          'quote.amount': 'Quantidade aproximada',
+          'quote.unknown': 'A definir',
+          'quote.enter': 'Informar quantidade',
+          'quote.open': 'Abrir WhatsApp',
+          'quote.greeting': 'Olá Tomás, gostaria de um orçamento para o meu negócio.',
+          'quote.error.services': 'Selecione pelo menos um serviço.',
+          'quote.error.shop': 'Informe o nome do seu negócio.',
+          'quote.error.area': 'Informe seu município.',
+          'quote.error.amount': 'Informe um número inteiro maior que zero.',
+          'quote.cutters': 'Cortadores e carimbos 3D',
           'nav.faq': 'Perguntas',
           'nav.contact': 'Contato',
           'hero.tag': 'Tecnologia simples para lojas e cafeterias',
@@ -1771,13 +2001,20 @@
       };
       var HTML_LANG = { es: 'es-CL', en: 'en', pt: 'pt-BR' };
 
+      var idiomaActual = 'es';
+      var errorCotizador = null;
+      var formulario = document.querySelector('.quote-form');
+      var aviso = document.getElementById('quote-error');
+
       function idiomaValido(lang) {
         return lang === 'es' || lang === 'en' || lang === 'pt';
       }
 
       function aplicar(lang) {
         if (!idiomaValido(lang)) lang = 'es';
+        idiomaActual = lang;
         var t = T[lang];
+        if (errorCotizador) aviso.textContent = t[errorCotizador];
         document.documentElement.lang = HTML_LANG[lang];
         document.title = t['meta.title'];
         document.querySelector('meta[name="description"]').content = t['meta.description'];
@@ -1820,7 +2057,84 @@
         });
       });
 
+      var local = document.getElementById('quote-shop');
+      var comuna = document.getElementById('quote-area');
+      var servicios = Array.from(formulario.querySelectorAll('.quote-service')).map(function (fila) {
+        var elegido = fila.querySelector('input[type="checkbox"]');
+        var opciones = fila.querySelector('.quote-quantity');
+        var modo = opciones.querySelector('select');
+        var cantidad = opciones.querySelector('input');
+
+        function actualizarCantidad() {
+          opciones.hidden = modo.disabled = !elegido.checked;
+          cantidad.hidden = cantidad.disabled = !elegido.checked || modo.value !== 'known';
+        }
+
+        elegido.addEventListener('change', actualizarCantidad);
+        modo.addEventListener('change', actualizarCantidad);
+        actualizarCantidad();
+        return {
+          elegido: elegido,
+          cantidad: cantidad,
+          clave: fila.querySelector('[data-i18n]').getAttribute('data-i18n')
+        };
+      });
+
+      var campoConError = null;
+
+      function limpiarError() {
+        if (!campoConError) return;
+        campoConError.removeAttribute('aria-invalid');
+        campoConError.removeAttribute('aria-describedby');
+        campoConError = errorCotizador = null;
+        aviso.textContent = '';
+      }
+
+      function mostrarError(clave, campo) {
+        errorCotizador = 'quote.error.' + clave;
+        campoConError = campo;
+        campo.setAttribute('aria-invalid', 'true');
+        campo.setAttribute('aria-describedby', aviso.id);
+        aviso.textContent = T[idiomaActual][errorCotizador];
+        campo.focus();
+      }
+
+      formulario.addEventListener('input', limpiarError);
+      formulario.addEventListener('change', limpiarError);
+      formulario.addEventListener('submit', function (evento) {
+        evento.preventDefault();
+        limpiarError();
+
+        var seleccionados = servicios.filter(function (servicio) {
+          return servicio.elegido.checked;
+        });
+        if (!seleccionados.length) return mostrarError('services', servicios[0].elegido);
+        if (!local.value.trim()) return mostrarError('shop', local);
+        if (!comuna.value.trim()) return mostrarError('area', comuna);
+
+        var sinCantidadValida = seleccionados.find(function (servicio) {
+          var entrada = servicio.cantidad;
+          return !entrada.disabled && (!/^[0-9]+$/.test(entrada.value.trim()) || Number(entrada.value) < 1);
+        });
+        if (sinCantidadValida) return mostrarError('amount', sinCantidadValida.cantidad);
+
+        var t = T[idiomaActual];
+        var mensaje = [
+          t['quote.greeting'],
+          t['quote.shop'] + ': ' + local.value.trim(),
+          t['quote.area'] + ': ' + comuna.value.trim(),
+          t['quote.services'] + ':'
+        ].concat(seleccionados.map(function (servicio) {
+          var entrada = servicio.cantidad;
+          var unidades = entrada.disabled ? t['quote.unknown'] : Number(entrada.value).toString();
+          return '- ' + t[servicio.clave] + ' — ' + unidades;
+        })).join('\n');
+
+        window.location.assign(WA + encodeURIComponent(mensaje));
+      });
+
       aplicar(inicial());
+      formulario.hidden = false;
     })();
   </script>
 

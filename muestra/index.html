@@ -987,10 +987,10 @@
         </span>
       </a>
       <div class="header-actions">
-        <div class="lang-switch" role="group" aria-label="Idioma / Language / Idioma">
-          <button type="button" data-lang="es" aria-pressed="true" lang="es" title="Español">ES</button>
-          <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
-          <button type="button" data-lang="pt" aria-pressed="false" lang="pt" title="Português">PT</button>
+        <div class="lang-switch" role="group" aria-label="Idioma">
+          <button type="button" data-lang="es" aria-pressed="true" lang="es" aria-label="Español">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en" aria-label="English">EN</button>
+          <button type="button" data-lang="pt" aria-pressed="false" lang="pt" aria-label="Português">PT</button>
         </div>
         <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20me%20gustar%C3%ADa%20consultar%20por%20servicios%20para%20mi%20local"
            data-wa="general"
@@ -1481,6 +1481,9 @@
       var T = {
         es: {
           'meta.title': 'Conecta Local · Tecnología para tu local',
+          'meta.description': 'Soluciones tecnológicas prácticas para locales comerciales: tarjetas de reseñas Google NFC, carteles QR WiFi, sitios web, galletas y llaveros personalizados.',
+          'a11y.language': 'Idioma',
+          'a11y.nav': 'Navegación principal',
           'brand.tagline': 'Tecnología para tu local',
           'nav.services': 'Servicios',
           'nav.how': 'Cómo funciona',
@@ -1573,6 +1576,9 @@
         },
         en: {
           'meta.title': 'Conecta Local · Tech for your business',
+          'meta.description': 'Practical technology for local businesses: Google review cards with NFC, WiFi QR signs, websites, custom cookies and keychains.',
+          'a11y.language': 'Language',
+          'a11y.nav': 'Main navigation',
           'brand.tagline': 'Tech for your business',
           'nav.services': 'Services',
           'nav.how': 'How it works',
@@ -1665,6 +1671,9 @@
         },
         pt: {
           'meta.title': 'Conecta Local · Tecnologia para o seu negócio',
+          'meta.description': 'Soluções práticas para negócios locais: cartões de avaliação Google com NFC, placas QR de WiFi, sites, biscoitos e chaveiros personalizados.',
+          'a11y.language': 'Idioma',
+          'a11y.nav': 'Navegação principal',
           'brand.tagline': 'Tecnologia para o seu negócio',
           'nav.services': 'Serviços',
           'nav.how': 'Como funciona',
@@ -1758,10 +1767,18 @@
       };
       var HTML_LANG = { es: 'es-CL', en: 'en', pt: 'pt-BR' };
 
+      function idiomaValido(lang) {
+        return lang === 'es' || lang === 'en' || lang === 'pt';
+      }
+
       function aplicar(lang) {
-        var t = T[lang] || T.es;
-        document.documentElement.lang = HTML_LANG[lang] || 'es-CL';
+        if (!idiomaValido(lang)) lang = 'es';
+        var t = T[lang];
+        document.documentElement.lang = HTML_LANG[lang];
         document.title = t['meta.title'];
+        document.querySelector('meta[name="description"]').content = t['meta.description'];
+        document.querySelector('.lang-switch').setAttribute('aria-label', t['a11y.language']);
+        document.querySelector('.header-nav').setAttribute('aria-label', t['a11y.nav']);
         document.querySelectorAll('[data-i18n]').forEach(function (el) {
           var k = el.getAttribute('data-i18n');
           if (t[k]) el.textContent = t[k];
@@ -1786,9 +1803,9 @@
       function inicial() {
         var guardado = null;
         try { guardado = localStorage.getItem('idioma'); } catch (e) { /* ignorar */ }
-        if (guardado && T[guardado]) return guardado;
+        if (idiomaValido(guardado)) return guardado;
         var nav = (navigator.language || 'es').slice(0, 2).toLowerCase();
-        return T[nav] ? nav : 'es';
+        return idiomaValido(nav) ? nav : 'es';
       }
 
       document.querySelectorAll('.lang-switch button').forEach(function (b) {
@@ -1799,8 +1816,7 @@
         });
       });
 
-      var lang = inicial();
-      if (lang !== 'es') aplicar(lang);
+      aplicar(inicial());
     })();
   </script>
 

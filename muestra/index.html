@@ -587,6 +587,74 @@
       margin: 0;
     }
 
+    /* Preguntas frecuentes */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-item[open] {
+      border-color: #bfdbfe;
+      box-shadow: var(--shadow-md);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 18px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 52px;
+      line-height: 1.35;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+      color: var(--color-primary);
+    }
+
+    .faq-answer {
+      padding: 0 18px 18px;
+      color: var(--color-text-muted);
+      font-size: 0.93rem;
+      line-height: 1.55;
+      border-top: 1px dashed var(--color-border);
+      padding-top: 12px;
+      margin: 0 18px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
     /* CTA Final */
     .cta-card {
       background-color: var(--color-surface);
@@ -1088,6 +1156,40 @@
       </div>
     </section>
 
+    <!-- Preguntas frecuentes -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="faq.title">Preguntas frecuentes</h2>
+        <p class="section-desc" data-i18n="faq.desc">Respuestas rápidas a las dudas más comunes antes de pedir para tu local.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary data-i18n="faq.1q">¿Los clientes necesitan instalar alguna app para usar el NFC o los carteles QR?</summary>
+          <p class="faq-answer" data-i18n="faq.1a">No. Tanto las tarjetas de reseñas con NFC como los carteles QR WiFi funcionan directo con iPhone y Android, acercando el teléfono o escaneando con la cámara sin instalar nada.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.2q">¿Los productos llevan el logo y los colores de mi local?</summary>
+          <p class="faq-answer" data-i18n="faq.2a">Sí. Todo se prepara con el diseño, el logo y los colores de tu marca. Si todavía no tienes un diseño armado, te ayudo a crearlo.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.3q">¿Puedo pedir pocas unidades o tiene que ser un pedido grande?</summary>
+          <p class="faq-answer" data-i18n="faq.3a">Puedes hacer pedidos desde pocas unidades, o packs más grandes si los necesitas para eventos, promociones o regalos de empresa.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.4q">¿Cuántos colores pueden tener los llaveros personalizados?</summary>
+          <p class="faq-answer" data-i18n="faq.4a">Los llaveros impresos en 3D pueden incluir hasta 4 colores, combinando los tonos de tu marca.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.5q">¿Con quién hablo si tengo dudas o quiero revisar mi pedido?</summary>
+          <p class="faq-answer" data-i18n="faq.5a">Hablas directamente con Tomás por WhatsApp, sin intermediarios ni respuestas automáticas. Revisamos juntos lo que necesita tu local.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.6q">¿Todo está pensado para que mis clientes lo usen desde el celular?</summary>
+          <p class="faq-answer" data-i18n="faq.6a">Sí. Los sitios web cargan rápido y muestran tu carta, horarios, mapa de Google Maps y botón a WhatsApp, y las tarjetas NFC y carteles QR se abren directo en el teléfono.</p>
+        </details>
+      </div>
+    </section>
+
     <!-- Tarjeta CTA de cierre -->
     <div class="cta-card" id="contacto">
       <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
@@ -1194,6 +1296,20 @@
           'how.2p': 'Armamos la propuesta con tu logo, tus colores y tu información. Si no tienes diseño, te ayudo a crearlo.',
           'how.3h': 'Te lo entrego listo para usar',
           'how.3p': 'Recibes todo probado y configurado, para llegar y poner en tu mostrador, mesas o compartir con tus clientes.',
+          'faq.title': 'Preguntas frecuentes',
+          'faq.desc': 'Respuestas rápidas a las dudas más comunes antes de pedir para tu local.',
+          'faq.1q': '¿Los clientes necesitan instalar alguna app para usar el NFC o los carteles QR?',
+          'faq.1a': 'No. Tanto las tarjetas de reseñas con NFC como los carteles QR WiFi funcionan directo con iPhone y Android, acercando el teléfono o escaneando con la cámara sin instalar nada.',
+          'faq.2q': '¿Los productos llevan el logo y los colores de mi local?',
+          'faq.2a': 'Sí. Todo se prepara con el diseño, el logo y los colores de tu marca. Si todavía no tienes un diseño armado, te ayudo a crearlo.',
+          'faq.3q': '¿Puedo pedir pocas unidades o tiene que ser un pedido grande?',
+          'faq.3a': 'Puedes hacer pedidos desde pocas unidades, o packs más grandes si los necesitas para eventos, promociones o regalos de empresa.',
+          'faq.4q': '¿Cuántos colores pueden tener los llaveros personalizados?',
+          'faq.4a': 'Los llaveros impresos en 3D pueden incluir hasta 4 colores, combinando los tonos de tu marca.',
+          'faq.5q': '¿Con quién hablo si tengo dudas o quiero revisar mi pedido?',
+          'faq.5a': 'Hablas directamente con Tomás por WhatsApp, sin intermediarios ni respuestas automáticas. Revisamos juntos lo que necesita tu local.',
+          'faq.6q': '¿Todo está pensado para que mis clientes lo usen desde el celular?',
+          'faq.6a': 'Sí. Los sitios web cargan rápido y muestran tu carta, horarios, mapa de Google Maps y botón a WhatsApp, y las tarjetas NFC y carteles QR se abren directo en el teléfono.',
           'cta.h': '¿Tienes dudas o quieres cotizar para tu local?',
           'cta.p': 'Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.',
           'cta.btn': 'Conversar por WhatsApp',
@@ -1271,6 +1387,20 @@
           'how.2p': 'We put the proposal together with your logo, colors and info. If you don’t have a design, I’ll help you create it.',
           'how.3h': 'Delivered ready to use',
           'how.3p': 'You receive everything tested and set up, ready to place on your counter, tables or share with your customers.',
+          'faq.title': 'Frequently asked questions',
+          'faq.desc': 'Quick answers to the most common questions before ordering for your business.',
+          'faq.1q': 'Do customers need to install an app to use the NFC cards or QR signs?',
+          'faq.1a': 'No. Both the NFC review cards and the WiFi QR signs work directly on iPhone and Android by tapping the phone or scanning with the camera, with no app required.',
+          'faq.2q': 'Do the products include my business logo and colors?',
+          'faq.2a': 'Yes. Everything is made with your brand’s design, logo and colors. If you don’t have a design yet, I’ll help you put one together.',
+          'faq.3q': 'Can I order just a few units, or does it have to be a large order?',
+          'faq.3a': 'You can order from just a few units, or larger packs if you need them for events, promotions or corporate gifts.',
+          'faq.4q': 'How many colors can the custom keychains have?',
+          'faq.4a': 'The 3D-printed keychains can include up to 4 colors, matching your brand’s tones.',
+          'faq.5q': 'Who do I talk to if I have questions or want to review my order?',
+          'faq.5a': 'You talk directly with Tomás on WhatsApp, with no middlemen or automated replies. Together we review what your business needs.',
+          'faq.6q': 'Is everything designed for my customers to use from their phone?',
+          'faq.6a': 'Yes. The websites load fast and show your menu, hours, Google Maps location and WhatsApp button, and the NFC cards and QR signs open straight on their phone.',
           'cta.h': 'Questions, or want a quote for your business?',
           'cta.p': 'Message me on WhatsApp, tell me about your business and I’ll help you find the best option for what you need.',
           'cta.btn': 'Chat on WhatsApp',
@@ -1348,6 +1478,20 @@
           'how.2p': 'Montamos a proposta com seu logo, suas cores e suas informações. Se não tiver um design, eu te ajudo a criar.',
           'how.3h': 'Entrego tudo pronto para usar',
           'how.3p': 'Você recebe tudo testado e configurado, pronto para colocar no balcão, nas mesas ou compartilhar com seus clientes.',
+          'faq.title': 'Perguntas frequentes',
+          'faq.desc': 'Respostas rápidas para as dúvidas mais comuns antes de fazer seu pedido.',
+          'faq.1q': 'Os clientes precisam instalar algum aplicativo para usar o NFC ou as placas QR?',
+          'faq.1a': 'Não. Tanto os cartões de avaliação com NFC quanto as placas QR de WiFi funcionam direto no iPhone e no Android, aproximando o celular ou escaneando com a câmera sem instalar nada.',
+          'faq.2q': 'Os produtos vêm com o logo e as cores do meu negócio?',
+          'faq.2a': 'Sim. Tudo é feito com o design, o logo e as cores da sua marca. Se você ainda não tiver um design pronto, eu te ajudo a criar.',
+          'faq.3q': 'Posso pedir poucas unidades ou precisa ser um pedido grande?',
+          'faq.3a': 'Você pode pedir a partir de poucas unidades, ou kits maiores se precisar para eventos, promoções ou brindes corporativos.',
+          'faq.4q': 'Quantas cores os chaveiros personalizados podem ter?',
+          'faq.4a': 'Os chaveiros impressos em 3D podem ter até 4 cores, combinando os tons da sua marca.',
+          'faq.5q': 'Com quem eu falo se tiver dúvidas ou quiser revisar meu pedido?',
+          'faq.5a': 'Você fala diretamente com o Tomás pelo WhatsApp, sem intermediários nem respostas automáticas. Vemos juntos o que o seu negócio precisa.',
+          'faq.6q': 'Tudo é pensado para os meus clientes usarem pelo celular?',
+          'faq.6a': 'Sim. Os sites carregam rápido e mostram seu cardápio, horários, mapa no Google Maps e botão do WhatsApp, e os cartões NFC e placas QR abrem direto no celular.',
           'cta.h': 'Tem dúvidas ou quer um orçamento para o seu negócio?',
           'cta.p': 'Me chame no WhatsApp, conte sobre o seu negócio e eu te ajudo a escolher a melhor opção para o que você precisa.',
           'cta.btn': 'Conversar no WhatsApp',

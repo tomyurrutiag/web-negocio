@@ -100,8 +100,8 @@
     }
 
     .header-inner {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
@@ -111,8 +111,7 @@
 
     /* Menú de navegación del encabezado */
     .header-nav {
-      order: 3;
-      flex: 1 0 100%;
+      grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       align-items: stretch;
@@ -177,7 +176,7 @@
       font-weight: 800;
       color: var(--color-primary-dark);
       letter-spacing: -0.01em;
-      white-space: nowrap;
+      overflow-wrap: anywhere;
     }
 
     .brand-tagline {
@@ -997,7 +996,7 @@
     /* Menú en una sola fila en pantallas grandes */
     @media (min-width: 860px) {
       .header-inner {
-        flex-wrap: nowrap;
+        display: flex;
         padding-bottom: 12px;
       }
 

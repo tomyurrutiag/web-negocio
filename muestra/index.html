@@ -1571,15 +1571,8 @@
             <li class="quote-service">
               <label class="quote-choice">
                 <input type="checkbox">
-                <span id="quote-service-2" data-i18n="s3.t">Sitios web para locales</span>
+                <span data-i18n="s3.t">Sitios web para locales</span>
               </label>
-              <div class="quote-quantity" hidden>
-                <select aria-labelledby="quote-amount quote-service-2" disabled>
-                  <option value="unknown" data-i18n="quote.unknown">Por definir</option>
-                  <option value="known" data-i18n="quote.enter">Ingresar cantidad</option>
-                </select>
-                <input type="text" inputmode="numeric" maxlength="12" aria-labelledby="quote-amount quote-service-2" hidden disabled>
-              </div>
             </li>
             <li class="quote-service">
               <label class="quote-choice">
@@ -2087,17 +2080,19 @@
       var servicios = Array.from(formulario.querySelectorAll('.quote-service')).map(function (fila) {
         var elegido = fila.querySelector('input[type="checkbox"]');
         var opciones = fila.querySelector('.quote-quantity');
-        var modo = opciones.querySelector('select');
-        var cantidad = opciones.querySelector('input');
+        var modo = opciones && opciones.querySelector('select');
+        var cantidad = opciones && opciones.querySelector('input');
 
         function actualizarCantidad() {
           opciones.hidden = modo.disabled = !elegido.checked;
           cantidad.hidden = cantidad.disabled = !elegido.checked || modo.value !== 'known';
         }
 
-        elegido.addEventListener('change', actualizarCantidad);
-        modo.addEventListener('change', actualizarCantidad);
-        actualizarCantidad();
+        if (opciones) {
+          elegido.addEventListener('change', actualizarCantidad);
+          modo.addEventListener('change', actualizarCantidad);
+          actualizarCantidad();
+        }
         return {
           elegido: elegido,
           cantidad: cantidad,
@@ -2139,7 +2134,7 @@
 
         var sinCantidadValida = seleccionados.find(function (servicio) {
           var entrada = servicio.cantidad;
-          return !entrada.disabled && (!/^[0-9]+$/.test(entrada.value.trim()) || Number(entrada.value) < 1);
+          return entrada && !entrada.disabled && (!/^[0-9]+$/.test(entrada.value.trim()) || Number(entrada.value) < 1);
         });
         if (sinCantidadValida) return mostrarError('amount', sinCantidadValida.cantidad);
 
@@ -2151,8 +2146,10 @@
           t['quote.services'] + ':'
         ].concat(seleccionados.map(function (servicio) {
           var entrada = servicio.cantidad;
+          var linea = '- ' + t[servicio.clave];
+          if (!entrada) return linea;
           var unidades = entrada.disabled ? t['quote.unknown'] : Number(entrada.value).toString();
-          return '- ' + t[servicio.clave] + ' — ' + unidades;
+          return linea + ' — ' + unidades;
         })).join('\n');
 
         var url = WA + encodeURIComponent(mensaje);

@@ -2155,7 +2155,15 @@
           return '- ' + t[servicio.clave] + ' — ' + unidades;
         })).join('\n');
 
-        window.location.assign(WA + encodeURIComponent(mensaje));
+        var url = WA + encodeURIComponent(mensaje);
+        // Con noopener, open devuelve null incluso cuando abre la pestaña.
+        var pestaña = window.open('about:blank', '_blank');
+        if (pestaña === null) {
+          window.location.assign(url);
+          return;
+        }
+        pestaña.opener = null;
+        pestaña.location.replace(url);
       });
 
       aplicar(inicial());

@@ -540,6 +540,53 @@
       margin: 0;
     }
 
+    /* Cómo funciona */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .step-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-violet) 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .step-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .step-card p {
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
     /* CTA Final */
     .cta-card {
       background-color: var(--color-surface);
@@ -694,6 +741,16 @@
 
       .features-list {
         grid-template-columns: repeat(3, 1fr);
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .step-card {
+        flex-direction: column;
+        padding: 24px;
       }
 
       .section-title {
@@ -998,21 +1055,52 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Tarjeta CTA de cierre -->
-      <div class="cta-card" id="contacto">
-        <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
-        <p data-i18n="cta.p">Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
-        <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local"
-           data-wa="talk"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="btn btn-whatsapp">
-          <svg width="20" height="20"><use href="#i-wa"/></svg>
-          <span data-i18n="cta.btn">Conversar por WhatsApp</span>
-        </a>
+    <!-- Cómo funciona -->
+    <section class="section" id="como-funciona">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="how.title">¿Cómo funciona?</h2>
+        <p class="section-desc" data-i18n="how.desc">En tres pasos simples pasamos de tu idea a tener todo funcionando en tu local.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-badge" aria-hidden="true">1</div>
+          <div>
+            <h3 data-i18n="how.1h">Me escribes por WhatsApp</h3>
+            <p data-i18n="how.1p">Cuéntame qué necesitas para tu local y qué te gustaría mostrar. Te respondo directo, sin formularios largos.</p>
+          </div>
+        </article>
+        <article class="step-card">
+          <div class="step-badge" aria-hidden="true">2</div>
+          <div>
+            <h3 data-i18n="how.2h">Diseñamos juntos con tu marca</h3>
+            <p data-i18n="how.2p">Armamos la propuesta con tu logo, tus colores y tu información. Si no tienes diseño, te ayudo a crearlo.</p>
+          </div>
+        </article>
+        <article class="step-card">
+          <div class="step-badge" aria-hidden="true">3</div>
+          <div>
+            <h3 data-i18n="how.3h">Te lo entrego listo para usar</h3>
+            <p data-i18n="how.3p">Recibes todo probado y configurado, para llegar y poner en tu mostrador, mesas o compartir con tus clientes.</p>
+          </div>
+        </article>
       </div>
     </section>
+
+    <!-- Tarjeta CTA de cierre -->
+    <div class="cta-card" id="contacto">
+      <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
+      <p data-i18n="cta.p">Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
+      <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local"
+         data-wa="talk"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-whatsapp">
+        <svg width="20" height="20"><use href="#i-wa"/></svg>
+        <span data-i18n="cta.btn">Conversar por WhatsApp</span>
+      </a>
+    </div>
   </main>
 
   <!-- Pie de página -->
@@ -1098,6 +1186,14 @@
           'why.2p': 'Te entrego todo probado, configurado y listo para colocar en tu mostrador o mesas.',
           'why.3h': 'Foco en celular',
           'why.3p': 'La mayoría de tus clientes llega con el celular en la mano. Todo está pensado para ellos.',
+          'how.title': '¿Cómo funciona?',
+          'how.desc': 'En tres pasos simples pasamos de tu idea a tener todo funcionando en tu local.',
+          'how.1h': 'Me escribes por WhatsApp',
+          'how.1p': 'Cuéntame qué necesitas para tu local y qué te gustaría mostrar. Te respondo directo, sin formularios largos.',
+          'how.2h': 'Diseñamos juntos con tu marca',
+          'how.2p': 'Armamos la propuesta con tu logo, tus colores y tu información. Si no tienes diseño, te ayudo a crearlo.',
+          'how.3h': 'Te lo entrego listo para usar',
+          'how.3p': 'Recibes todo probado y configurado, para llegar y poner en tu mostrador, mesas o compartir con tus clientes.',
           'cta.h': '¿Tienes dudas o quieres cotizar para tu local?',
           'cta.p': 'Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.',
           'cta.btn': 'Conversar por WhatsApp',
@@ -1167,6 +1263,14 @@
           'why.2p': 'Everything is delivered tested, set up and ready for your counter or tables.',
           'why.3h': 'Mobile first',
           'why.3p': 'Most of your customers arrive phone in hand. Everything is designed for them.',
+          'how.title': 'How does it work?',
+          'how.desc': 'In three simple steps we go from your idea to having everything working at your shop.',
+          'how.1h': 'You message me on WhatsApp',
+          'how.1p': 'Tell me what you need for your business and what you’d like to show. I reply directly, no long forms.',
+          'how.2h': 'We design it together with your brand',
+          'how.2p': 'We put the proposal together with your logo, colors and info. If you don’t have a design, I’ll help you create it.',
+          'how.3h': 'Delivered ready to use',
+          'how.3p': 'You receive everything tested and set up, ready to place on your counter, tables or share with your customers.',
           'cta.h': 'Questions, or want a quote for your business?',
           'cta.p': 'Message me on WhatsApp, tell me about your business and I’ll help you find the best option for what you need.',
           'cta.btn': 'Chat on WhatsApp',
@@ -1236,6 +1340,14 @@
           'why.2p': 'Entrego tudo testado, configurado e pronto para colocar no balcão ou nas mesas.',
           'why.3h': 'Foco no celular',
           'why.3p': 'A maioria dos seus clientes chega com o celular na mão. Tudo é pensado para eles.',
+          'how.title': 'Como funciona?',
+          'how.desc': 'Em três passos simples vamos da sua ideia até ter tudo funcionando no seu negócio.',
+          'how.1h': 'Você me chama no WhatsApp',
+          'how.1p': 'Conte o que você precisa para o seu negócio e o que gostaria de mostrar. Respondo direto, sem formulários longos.',
+          'how.2h': 'Criamos juntos com a sua marca',
+          'how.2p': 'Montamos a proposta com seu logo, suas cores e suas informações. Se não tiver um design, eu te ajudo a criar.',
+          'how.3h': 'Entrego tudo pronto para usar',
+          'how.3p': 'Você recebe tudo testado e configurado, pronto para colocar no balcão, nas mesas ou compartilhar com seus clientes.',
           'cta.h': 'Tem dúvidas ou quer um orçamento para o seu negócio?',
           'cta.p': 'Me chame no WhatsApp, conte sobre o seu negócio e eu te ajudo a escolher a melhor opção para o que você precisa.',
           'cta.btn': 'Conversar no WhatsApp',

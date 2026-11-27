@@ -71,11 +71,54 @@
 
     .header-inner {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       padding-top: 12px;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
+    }
+
+    /* Menú de navegación del encabezado */
+    .header-nav {
+      order: 3;
+      flex: 1 0 100%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-top: 8px;
+      border-top: 1px solid var(--color-border);
+      max-width: 100%;
+    }
+
+    .header-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .header-nav a {
+      flex-shrink: 0;
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .header-nav a:hover,
+    .header-nav a:focus-visible {
+      background-color: #eff6ff;
+      color: var(--color-primary);
+    }
+
+    section[id],
+    div[id] {
+      scroll-margin-top: 112px;
     }
 
     /* Marca: logo + nombre */
@@ -676,6 +719,32 @@
         height: 22px;
       }
     }
+
+    /* Menú en una sola fila en pantallas grandes */
+    @media (min-width: 860px) {
+      .header-inner {
+        flex-wrap: nowrap;
+        padding-bottom: 12px;
+      }
+
+      .header-nav {
+        order: 2;
+        flex: 0 1 auto;
+        border-top: 0;
+        padding-top: 0;
+        overflow-x: visible;
+        justify-content: center;
+      }
+
+      .header-actions {
+        order: 3;
+      }
+
+      section[id],
+      div[id] {
+        scroll-margin-top: 80px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -710,6 +779,12 @@
           <span class="brand-tagline" data-i18n="brand.tagline">Tecnología para tu local</span>
         </span>
       </a>
+      <nav class="header-nav" aria-label="Navegación principal">
+        <a href="#servicios" data-i18n="nav.services">Servicios</a>
+        <a href="#como-funciona" data-i18n="nav.how">Cómo funciona</a>
+        <a href="#faq" data-i18n="nav.faq">Preguntas</a>
+        <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+      </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Idioma / Language / Idioma">
           <button type="button" data-lang="es" aria-pressed="true" lang="es" title="Español">ES</button>
@@ -925,7 +1000,7 @@
       </div>
 
       <!-- Tarjeta CTA de cierre -->
-      <div class="cta-card">
+      <div class="cta-card" id="contacto">
         <h3 data-i18n="cta.h">¿Tienes dudas o quieres cotizar para tu local?</h3>
         <p data-i18n="cta.p">Escríbeme por WhatsApp, cuéntame de tu negocio y te asesoro con la mejor opción según lo que necesites.</p>
         <a href="https://wa.me/56979560426?text=Hola%20Tom%C3%A1s,%20quiero%20conversar%20sobre%20lo%20que%20necesito%20para%20mi%20local"
@@ -971,6 +1046,10 @@
         es: {
           'meta.title': 'Conecta Local · Tecnología para tu local',
           'brand.tagline': 'Tecnología para tu local',
+          'nav.services': 'Servicios',
+          'nav.how': 'Cómo funciona',
+          'nav.faq': 'Preguntas',
+          'nav.contact': 'Contacto',
           'hero.tag': 'Tecnología simple para locales y cafeterías',
           'hero.title': 'Atrae más clientes y <span class="highlight">mejora la experiencia</span> en tu local',
           'hero.sub': 'Te ayudo a conseguir más reseñas en Google, conectar rápido el WiFi de tus clientes, tener tu propia web y regalar galletas y llaveros con tu marca.',
@@ -1036,6 +1115,10 @@
         en: {
           'meta.title': 'Conecta Local · Tech for your business',
           'brand.tagline': 'Tech for your business',
+          'nav.services': 'Services',
+          'nav.how': 'How it works',
+          'nav.faq': 'FAQ',
+          'nav.contact': 'Contact',
           'hero.tag': 'Simple tech for shops and cafés',
           'hero.title': 'Attract more customers and <span class="highlight">improve the experience</span> at your business',
           'hero.sub': 'I help you get more Google reviews, connect your customers to WiFi in seconds, have your own website, and give away cookies and keychains with your brand.',
@@ -1101,6 +1184,10 @@
         pt: {
           'meta.title': 'Conecta Local · Tecnologia para o seu negócio',
           'brand.tagline': 'Tecnologia para o seu negócio',
+          'nav.services': 'Serviços',
+          'nav.how': 'Como funciona',
+          'nav.faq': 'Perguntas',
+          'nav.contact': 'Contato',
           'hero.tag': 'Tecnologia simples para lojas e cafeterias',
           'hero.title': 'Atraia mais clientes e <span class="highlight">melhore a experiência</span> no seu negócio',
           'hero.sub': 'Eu te ajudo a conseguir mais avaliações no Google, conectar seus clientes ao WiFi em segundos, ter seu próprio site e presentear com biscoitos e chaveiros da sua marca.',

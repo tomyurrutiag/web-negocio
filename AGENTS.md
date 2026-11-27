@@ -32,3 +32,6 @@ Tomás le habla a Claude; Claude reparte. Nombres en Herdr: `claude-conecta`, `c
 - `muestra/` — sitio de muestra del negocio de Tomás.
 - `clientes/<nombre-cliente>/` — un sitio por cliente.
 - `docs/` — notas, cotizaciones y guías.
+
+## Bitácora compartida (27-11)
+- Todas las IA usan `docs/bitacora-equipo.md`: **leen las últimas entradas antes de empezar** y **agregan una entrada arriba al terminar** cada tarea (fecha y hora, quién, qué hizo, archivos, qué falta). Así cada una sabe lo que hicieron las otras, y Tomás lo lee en Obsidian.
